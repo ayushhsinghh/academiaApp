@@ -67,7 +67,7 @@ class AttendanceContainer extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.clip,
                             style: const TextStyle(
-                                fontSize: 15,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
@@ -113,12 +113,19 @@ class AttendanceContainer extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     value[5],
-                    style: TextStyle(color: Colors.grey[300]),
+                    style: TextStyle(
+                      color: Colors.grey[300],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                   const SizedBox(height: 3.0),
                   Text(
                     "Total Class",
-                    style: TextStyle(color: Colors.grey[900]),
+                    style: TextStyle(
+                      color: Colors.grey[900],
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -139,7 +146,10 @@ class AttendanceContainer extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     value[7],
-                    style: TextStyle(color: Colors.grey[300]),
+                    style: TextStyle(
+                        color: Colors.grey[300],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
                   const SizedBox(height: 3.0),
                   Text(
