@@ -7,7 +7,7 @@ class LoginController extends GetxController {
   late TextEditingController emailController, passwordController;
   var email = '';
   var password = '';
-  final isvisible = false.obs;
+  final isvisible = true.obs;
 
   void changevisibilty() {
     isvisible.value = !isvisible.value;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:srmacadmia/models/Details.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class AttendanceContainer extends StatelessWidget {
-  const AttendanceContainer(
+class MarksContainer extends StatelessWidget {
+  const MarksContainer(
       {Key? key, required this.studentInfo, required this.index})
       : super(key: key);
   final Details studentInfo;
@@ -11,13 +11,13 @@ class AttendanceContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String param = studentInfo.attendance!.keys.elementAt(index);
+    String param = studentInfo.marks!.keys.elementAt(index);
     List<String>? value = studentInfo.attendance![param];
-    double percent = double.parse(value![7]);
+    double percent = 76.00;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+      margin: const EdgeInsets.all(7),
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 25.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         gradient: percent > 75
@@ -50,11 +50,11 @@ class AttendanceContainer extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          param,
+                          "param",
                         ),
                         const SizedBox(width: 15.0),
                         Text(
-                          value[2],
+                          "value![2]",
                         ),
                       ],
                     ),
@@ -63,11 +63,11 @@ class AttendanceContainer extends StatelessWidget {
                         Expanded(
                           flex: 1,
                           child: Text(
-                            value[1],
+                            "value[1]",
                             maxLines: 2,
                             overflow: TextOverflow.clip,
                             style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
@@ -93,7 +93,7 @@ class AttendanceContainer extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            value[3],
+                            "value[1]",
                             maxLines: 2,
                             overflow: TextOverflow.clip,
                           ),
@@ -112,11 +112,11 @@ class AttendanceContainer extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    value[5],
+                    "2",
                     style: TextStyle(
                       color: Colors.grey[300],
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 20,
                     ),
                   ),
                   const SizedBox(height: 3.0),
@@ -132,27 +132,20 @@ class AttendanceContainer extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    value[6],
-                    style: TextStyle(
-                      color: Colors.grey[300],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                    "value[2]",
+                    style: TextStyle(color: Colors.grey[300]),
                   ),
                   const SizedBox(height: 3.0),
                   Text(
                     "Absent",
-                    style: TextStyle(
-                      color: Colors.grey[900],
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(color: Colors.grey[900]),
                   ),
                 ],
               ),
               Column(
                 children: <Widget>[
                   Text(
-                    value[7],
+                    "value[1]",
                     style: TextStyle(
                         color: Colors.grey[300],
                         fontWeight: FontWeight.bold,
@@ -161,10 +154,7 @@ class AttendanceContainer extends StatelessWidget {
                   const SizedBox(height: 3.0),
                   Text(
                     "Can Bunk",
-                    style: TextStyle(
-                      color: Colors.grey[900],
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(color: Colors.grey[900]),
                   ),
                 ],
               ),

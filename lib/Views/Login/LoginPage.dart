@@ -93,13 +93,12 @@ class LoginPage extends GetView<LoginController> {
                                       color: Colors.grey[600]!.withOpacity(0.5),
                                       borderRadius: BorderRadius.circular(16),
                                     ),
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                        suffix: InkWell(
-                                          onTap: controller.changevisibilty,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 15),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 15),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
+                                          suffix: InkWell(
+                                            onTap: controller.changevisibilty,
                                             child: Icon(
                                               controller.isvisible.value
                                                   ? FontAwesomeIcons.eye
@@ -107,31 +106,32 @@ class LoginPage extends GetView<LoginController> {
                                               color: Colors.white,
                                             ),
                                           ),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 20),
-                                        border: InputBorder.none,
-                                        // suffix:,
-                                        hintText: 'Password',
-                                        prefixIcon: const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Icon(
-                                            FontAwesomeIcons.lock,
-                                            color: Colors.white,
-                                            size: 20,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 20),
+                                          border: InputBorder.none,
+                                          // suffix:,
+                                          hintText: 'Password',
+                                          prefixIcon: const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: Icon(
+                                              FontAwesomeIcons.lock,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
                                           ),
+                                          hintStyle: kBodyText,
                                         ),
-                                        hintStyle: kBodyText,
+                                        onSaved: (value) {
+                                          controller.password = value!;
+                                        },
+                                        controller:
+                                            controller.passwordController,
+                                        obscureText: controller.isvisible.value,
+                                        style: kBodyText,
+                                        textInputAction: TextInputAction.done,
                                       ),
-                                      onSaved: (value) {
-                                        controller.password = value!;
-                                      },
-                                      controller: controller.passwordController,
-                                      obscureText: controller.isvisible.value,
-                                      style: kBodyText,
-                                      textInputAction: TextInputAction.done,
                                     ),
                                   ),
                                 ),

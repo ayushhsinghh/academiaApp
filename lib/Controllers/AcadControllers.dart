@@ -11,9 +11,15 @@ import '../services/httpService.dart';
 class AcadDataController extends GetxController {
   late Details studentData;
   HttpService dhttp = HttpService();
+  var tabIndex = 0;
 
   String EMAIL = dotenv.env['EMAIL']!;
   String PASSWORD = dotenv.env['PASSWORD']!;
+
+  void changeTabIndex(int index) {
+    tabIndex = index;
+    update();
+  }
 
   Future<Details> getData() async {
     debugPrint('fetchAlbum called');

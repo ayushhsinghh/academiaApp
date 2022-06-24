@@ -3,6 +3,7 @@
 //     final details = detailsFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:ffi';
 
 Details detailsFromJson(String str) => Details.fromJson(json.decode(str));
 
@@ -19,7 +20,7 @@ class Details {
 
   final List<String>? attendanceFieldName;
   final Map<String, List<String>>? attendance;
-  final UserInfo? userInfo;
+  final Map<String, dynamic>? userInfo;
   final Map<String, List<String>>? marks;
   final SubcodetoName? subcodetoName;
 
@@ -29,7 +30,8 @@ class Details {
         attendance: Map.from(json["attendance"]).map((k, v) =>
             MapEntry<String, List<String>>(
                 k, List<String>.from(v.map((x) => x)))),
-        userInfo: UserInfo.fromJson(json["userInfo"]),
+        userInfo: Map.from(json["userInfo"])
+            .map((k, v) => MapEntry<String, dynamic>(k, v)),
         marks: Map.from(json["marks"]).map((k, v) =>
             MapEntry<String, List<String>>(
                 k, List<String>.from(v.map((x) => x)))),
@@ -41,7 +43,8 @@ class Details {
             List<dynamic>.from(attendanceFieldName!.map((x) => x)),
         "attendance": Map.from(attendance!).map((k, v) =>
             MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
-        "userInfo": userInfo!.toJson(),
+        "userInfo": Map.from(userInfo!)
+            .map((k, v) => MapEntry<String, dynamic>(k, v as String)),
         "marks": Map.from(marks!).map((k, v) =>
             MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
         "SubcodetoName": subcodetoName!.toJson(),
@@ -104,42 +107,42 @@ class SubcodetoName {
       };
 }
 
-class UserInfo {
-  UserInfo({
-    required this.registrationNumber,
-    required this.name,
-    required this.batch,
-    required this.mobile,
-    required this.program,
-    required this.department,
-    required this.semester,
-  });
+// class UserInfo {
+//   UserInfo({
+//     required this.registrationNumber,
+//     required this.name,
+//     required this.batch,
+//     required this.mobile,
+//     required this.program,
+//     required this.department,
+//     required this.semester,
+//   });
 
-  final dynamic registrationNumber;
-  final dynamic name;
-  final dynamic batch;
-  final dynamic mobile;
-  final dynamic program;
-  final dynamic department;
-  final String semester;
+//   final dynamic registrationNumber;
+//   final dynamic name;
+//   final dynamic batch;
+//   final dynamic mobile;
+//   final dynamic program;
+//   final dynamic department;
+//   final String semester;
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
-        registrationNumber: json["Registration Number:"],
-        name: json["Name:"],
-        batch: json["Batch:"],
-        mobile: json["Mobile:"],
-        program: json["Program:"],
-        department: json["Department:"],
-        semester: json["Semester:"],
-      );
+//   factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
+//         registrationNumber: json["Registration Number:"],
+//         name: json["Name:"],
+//         batch: json["Batch:"],
+//         mobile: json["Mobile:"],
+//         program: json["Program:"],
+//         department: json["Department:"],
+//         semester: json["Semester:"],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "Registration Number:": registrationNumber,
-        "Name:": name,
-        "Batch:": batch,
-        "Mobile:": mobile,
-        "Program:": program,
-        "Department:": department,
-        "Semester:": semester,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "Registration Number:": registrationNumber,
+//         "Name:": name,
+//         "Batch:": batch,
+//         "Mobile:": mobile,
+//         "Program:": program,
+//         "Department:": department,
+//         "Semester:": semester,
+//       };
+// }

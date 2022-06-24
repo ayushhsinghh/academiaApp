@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../Controllers/Controllers.dart';
+import '../../Controllers/AcadControllers.dart';
 
 class AttendanceBinding extends Bindings {
   @override
