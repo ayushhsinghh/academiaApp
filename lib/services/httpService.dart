@@ -9,7 +9,7 @@ class HttpService {
   late Dio _dio;
   final Alice _alice = Alice(
       showNotification: true,
-      darkTheme: true,
+      darkTheme: false,
       navigatorKey: navigatorKey,
       maxCallsCount: 1000);
 
@@ -43,7 +43,7 @@ class HttpService {
       if (kDebugMode) {
         print(e.message);
       }
-      throw Exception(e.message);
+      throw Exception(e.error);
     }
     if (null != response.headers.value(DIO_CACHE_HEADER_KEY_DATA_SOURCE)) {
       print('Data source: cache');

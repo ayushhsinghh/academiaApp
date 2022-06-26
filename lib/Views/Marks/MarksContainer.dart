@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:srmacadmia/Views/Marks/Functions.dart';
 import 'package:srmacadmia/models/Details.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 class MarksContainer extends StatelessWidget {
   const MarksContainer(
@@ -12,12 +12,22 @@ class MarksContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String param = studentInfo.marks!.keys.elementAt(index);
-    List<String>? value = studentInfo.attendance![param];
+    List<double>? value = studentInfo.marks![param];
+    double totalMark = 0;
+    double obtainedMark = 0;
+    List<double> marks = [];
+    if (value != null) {
+      totalMark = MathFunction.getTotalMarks(value);
+      obtainedMark = MathFunction.getObtainedMarks(value);
+      marks = MathFunction.getMarks(value);
+    }
+    // print("$param $totalMark $obtainedMark $marks");
+
     double percent = 76.00;
     return Container(
       margin: const EdgeInsets.all(7),
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 25.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         gradient: percent > 75
@@ -41,69 +51,30 @@ class MarksContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Text(
-                          "param",
-                        ),
-                        const SizedBox(width: 15.0),
-                        Text(
-                          "value![2]",
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            "value[1]",
-                            maxLines: 2,
-                            overflow: TextOverflow.clip,
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                        CircularPercentIndicator(
-                          radius: 27.0,
-                          percent: percent / 100,
-                          animation: true,
-                          center: Text(
-                            '$percent%',
-                            style: const TextStyle(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          progressColor: percent > 75
-                              ? Colors.green.shade800
-                              : Colors.red.shade800,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "value[1]",
-                            maxLines: 2,
-                            overflow: TextOverflow.clip,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+          SizedBox(
+            width: double.infinity,
+            height: 50.0,
+            // color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: Text(
+                    param,
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.clip,
+                  ),
                 ),
-              )
-            ],
+                Text(
+                  "${obtainedMark.toString()}/${totalMark.toString()}",
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                  overflow: TextOverflow.clip,
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 15.0),
           Row(

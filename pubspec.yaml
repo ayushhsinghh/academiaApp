@@ -47,8 +47,10 @@ dependencies:
   firebase_crashlytics: ^2.8.2
   firebase_core: ^1.18.0
   firebase_analytics: ^9.1.10
-  custom_refresh_indicator: ^1.2.1
   dio_http_cache: ^0.3.0
+  firebase_performance: ^0.8.0+14
+  firebase_remote_config: ^2.0.9
+
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +80,12 @@ flutter:
     - envFiles/secret.env
     - assets/images/srmuniversity.jpg
     - assets/json/login.json
+    - assets/json/character-animation.json
+    - assets/json/404Error.json
+    - assets/json/wireError.json
+    - assets/json/UnderMaintenance.json
+    - assets/json/no-internet.json
+    - assets/json/Wrongpassword.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

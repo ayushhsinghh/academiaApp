@@ -12,6 +12,7 @@ class AcadDataController extends GetxController {
   late Details studentData;
   HttpService dhttp = HttpService();
   var tabIndex = 0;
+  var checkConnection = false.obs;
 
   String EMAIL = dotenv.env['EMAIL']!;
   String PASSWORD = dotenv.env['PASSWORD']!;
