@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -17,144 +18,154 @@ class AttendancePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AcadDataController>(builder: (controller) {
-      return Scaffold(
-        backgroundColor: Colors.blue.shade100,
-        body: Center(
-          child: FutureBuilder<Details>(
-            future: controller
-                .getData(), // this now lives it its own AcadDataController class
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                controller.checkConnection.value = true;
-                return IndexedStack(
-                  index: controller.tabIndex,
+    final controller = Get.find<AcadDataController>();
+    if (kDebugMode) {
+      print("hello");
+    }
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text("Attendance"),
+      //   centerTitle: true,
+      // ),
+      backgroundColor: Colors.blue.shade100,
+      body: Center(
+        child: FutureBuilder<Details>(
+          future: controller
+              .getData(), // this now lives it its own AcadDataController class
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              controller.checkConnection.value = true;
+              // print("futureCalled");
+              return Obx(() => IndexedStack(
+                    index: controller.tabIndex.value,
+                    children: [
+                      AttendanceBuilder(snapshot.data!),
+                      MarksBuilder(snapshot),
+                      ProfileBuilder(snapshot),
+                    ],
+                  ));
+            } else if (snapshot.hasError) {
+              // Catch Socket Errors
+              controller.checkConnection.value = false;
+              if (snapshot.error.toString().contains('SocketException')) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AttendanceBuilder(snapshot),
-                    MarksBuilder(snapshot),
-                    ProfileBuilder(snapshot),
+                    Lottie.asset(
+                      'assets/json/no-internet.json',
+                      repeat: true,
+                    ),
+                    const Text(
+                      'No Internet Connection',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 );
-              } else if (snapshot.hasError) {
-                // Catch Socket Errors
-                // controller.checkConnection.value = false;
-                if (snapshot.error.toString().contains('SocketException')) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset(
-                        'assets/json/no-internet.json',
-                        repeat: true,
+              } else if (snapshot.error.toString().contains('error [500]')) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      'assets/json/Wrongpassword.json',
+                      repeat: true,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      '403 : Wrong Creditentials',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const Text(
-                        'No Internet Connection',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  );
-                } else if (snapshot.error.toString().contains('error [500]')) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Lottie.asset(
-                        'assets/json/Wrongpassword.json',
-                        repeat: true,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        '403 : Wrong Creditentials',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Lottie.asset("assets/json/character-animation.json"),
-                      Lottie.asset("assets/json/404Error.json"),
-                      // Lottie.asset("assets/json/login.json"),
-                      Text("${snapshot.error}"),
-                    ],
-                  );
-                }
+                    ),
+                  ],
+                );
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Lottie.asset("assets/json/character-animation.json"),
+                    Lottie.asset("assets/json/404Error.json"),
+                    // Lottie.asset("assets/json/login.json"),
+                    Text("${snapshot.error}"),
+                  ],
+                );
               }
-              // By default, show a loading spinner.
-              return shimmerEffectAttandance(context);
-            },
-          ),
+            }
+            // By default, show a loading spinner.
+            return shimmerEffectAttandance(context);
+          },
         ),
-        floatingActionButton: Container(
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            // add shadow
-            boxShadow: [
-              BoxShadow(
-                color: Colors.blueAccent.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-            borderRadius: BorderRadius.circular(50),
-          ),
-          width: 100,
-          height: 50,
-          child: TextButton(
-            child: Shimmer.fromColors(
-              baseColor: Colors.red.shade300,
-              highlightColor: Colors.grey.shade100,
-              child: const Text(
-                'Login Again',
-                style: TextStyle(
-                  color: Colors.white,
-                  // fontSize: 20,
-                ),
-              ),
-            ),
-            onPressed: () {
-              Get.offAllNamed('/login');
-            },
-          ),
-        ),
-        bottomNavigationBar: controller.checkConnection.value
-            ? BottomNavigationBar(
+      ),
+      // floatingActionButton: Container(
+      //   decoration: BoxDecoration(
+      //     color: Colors.blue,
+      //     // add shadow
+      //     boxShadow: [
+      //       BoxShadow(
+      //         color: Colors.blueAccent.withOpacity(0.5),
+      //         spreadRadius: 5,
+      //         blurRadius: 7,
+      //         offset: Offset(0, 3), // changes position of shadow
+      //       ),
+      //     ],
+      //     borderRadius: BorderRadius.circular(50),
+      //   ),
+      //   width: 100,
+      //   height: 50,
+      //   child: TextButton(
+      //     child: Shimmer.fromColors(
+      //       baseColor: Colors.red.shade300,
+      //       highlightColor: Colors.grey.shade100,
+      //       child: const Text(
+      //         'Login Again',
+      //         style: TextStyle(
+      //           color: Colors.white,
+      //           // fontSize: 20,
+      //         ),
+      //       ),
+      //     ),
+      //     onPressed: () {
+      //       Get.offAllNamed('/login');
+      //     },
+      //   ),
+      // ),
+      bottomNavigationBar: controller.checkConnection.value
+          ? Obx(() => BottomNavigationBar(
                 unselectedItemColor: Colors.black,
                 selectedItemColor: Colors.redAccent,
                 onTap: controller.changeTabIndex,
-                currentIndex: controller.tabIndex,
+                currentIndex: controller.tabIndex.value,
                 showSelectedLabels: true,
                 showUnselectedLabels: false,
                 enableFeedback: true,
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                items: const [
+                items: [
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
+                    icon: AnimatedIcon(
+                      icon: AnimatedIcons.pause_play,
+                      progress: controller.animationController,
+                    ),
                     label: 'Attendance',
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(Icons.calendar_today),
                     label: 'Marks',
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(Icons.person),
                     label: 'Profile',
                   ),
                 ],
-              )
-            : null,
-      );
-    });
+              ))
+          : null,
+    );
   }
 
   SizedBox shimmerEffectAttandance(BuildContext context) {
@@ -198,16 +209,27 @@ class AttendancePage extends StatelessWidget {
     );
   }
 
-  AttendanceBuilder(AsyncSnapshot<Details> snapshot) {
-    return ListView.builder(
-        controller: ScrollController(),
-        itemCount: snapshot.data!.attendance!.length,
-        itemBuilder: (context, index) {
-          return AttendanceContainer(
-            studentInfo: (snapshot.data)!,
-            index: index,
-          );
-        });
+  AttendanceBuilder(Details snapshot) {
+    // final controller = Get.find<AcadDataController>();
+    return GetBuilder<AcadDataController>(
+        builder: (controller) => RefreshIndicator(
+              // edgeOffset: 5.0,
+              onRefresh: () async {
+                snapshot = await controller.getData();
+                return;
+              },
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  clipBehavior: Clip.none,
+                  controller: ScrollController(),
+                  itemCount: snapshot.attendance!.length,
+                  itemBuilder: (context, index) {
+                    return AttendanceContainer(
+                      studentInfo: (snapshot),
+                      index: index,
+                    );
+                  }),
+            ));
   }
 
   MarksBuilder(AsyncSnapshot<Details> snapshot) {

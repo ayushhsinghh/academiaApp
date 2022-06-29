@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:srmacadmia/models/Details.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -6,14 +7,19 @@ class AttendanceContainer extends StatelessWidget {
   const AttendanceContainer(
       {Key? key, required this.studentInfo, required this.index})
       : super(key: key);
-  final Details studentInfo;
+
   final int index;
+  final Details studentInfo;
 
   @override
   Widget build(BuildContext context) {
     String param = studentInfo.attendance!.keys.elementAt(index);
     List<String>? value = studentInfo.attendance![param];
     double percent = double.parse(value![7]);
+    int present = int.parse(value[5]) - int.parse(value[6]);
+    if (kDebugMode) {
+      print("running");
+    }
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
       alignment: Alignment.center,
@@ -122,6 +128,26 @@ class AttendanceContainer extends StatelessWidget {
                   const SizedBox(height: 3.0),
                   Text(
                     "Total Class",
+                    style: TextStyle(
+                      color: Colors.grey[900],
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Text(
+                    present.toString(),
+                    style: TextStyle(
+                      color: Colors.grey[300],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 3.0),
+                  Text(
+                    "Present",
                     style: TextStyle(
                       color: Colors.grey[900],
                       fontWeight: FontWeight.bold,

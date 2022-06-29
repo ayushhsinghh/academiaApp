@@ -43,6 +43,7 @@ dependencies:
   percent_indicator: ^4.2.2
   lottie: ^1.3.0
   shimmer: ^2.0.0
+  fancy_bottom_navigation: ^0.3.3
   font_awesome_flutter: ^10.1.0
   firebase_crashlytics: ^2.8.2
   firebase_core: ^1.18.0

@@ -3,23 +3,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:srmacadmia/models/Details.dart';
 
 import '../services/httpService.dart';
 
-class AcadDataController extends GetxController {
+class AcadDataController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   late Details studentData;
+  // final academiaDataKey = const ObjectKey(Details);
+  late AnimationController animationController;
   HttpService dhttp = HttpService();
-  var tabIndex = 0;
-  var checkConnection = false.obs;
+  var tabIndex = 0.obs;
+  var checkConnection = true.obs;
 
   String EMAIL = dotenv.env['EMAIL']!;
   String PASSWORD = dotenv.env['PASSWORD']!;
 
   void changeTabIndex(int index) {
-    tabIndex = index;
-    update();
+    tabIndex.value = index;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 2500,
+      ),
+    );
   }
 
   Future<Details> getData() async {
@@ -40,7 +52,7 @@ class AcadDataController extends GetxController {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load Academia Data');
     }
   }
 }

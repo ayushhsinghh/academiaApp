@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:srmacadmia/Views/Marks/Functions.dart';
 import 'package:srmacadmia/models/Details.dart';
@@ -21,7 +22,9 @@ class MarksContainer extends StatelessWidget {
       obtainedMark = MathFunction.getObtainedMarks(value);
       marks = MathFunction.getMarks(value);
     }
-    // print("$param $totalMark $obtainedMark $marks");
+    if (kDebugMode) {
+      print("$marks");
+    }
 
     double percent = 76.00;
     return Container(
@@ -49,7 +52,7 @@ class MarksContainer extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
             width: double.infinity,
@@ -61,7 +64,8 @@ class MarksContainer extends StatelessWidget {
                 Expanded(
                   child: Text(
                     param,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.clip,
                   ),
@@ -77,60 +81,37 @@ class MarksContainer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "2",
-                    style: TextStyle(
-                      color: Colors.grey[300],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+          GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: marks.length,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 150.0,
+                  mainAxisExtent: 50.0,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 50.0
+                  // crossAxisCount: 2,
+                  // childAspectRatio: 1.0,
+                  // crossAxisSpacing: 10.0,
+                  // mainAxisSpacing: 10.0,
                   ),
-                  const SizedBox(height: 3.0),
-                  Text(
-                    "Total Class",
-                    style: TextStyle(
-                      color: Colors.grey[900],
-                      fontWeight: FontWeight.bold,
-                    ),
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    "value[2]",
-                    style: TextStyle(color: Colors.grey[300]),
-                  ),
-                  const SizedBox(height: 3.0),
-                  Text(
-                    "Absent",
-                    style: TextStyle(color: Colors.grey[900]),
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    "value[1]",
-                    style: TextStyle(
-                        color: Colors.grey[300],
+                  child: Center(
+                    child: Text(
+                      marks[index].toString(),
+                      style: const TextStyle(
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 3.0),
-                  Text(
-                    "Can Bunk",
-                    style: TextStyle(color: Colors.grey[900]),
-                  ),
-                ],
-              ),
-            ],
-          )
+                );
+              })
         ],
       ),
     );
