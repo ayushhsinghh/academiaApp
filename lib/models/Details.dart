@@ -15,6 +15,7 @@ class Details {
     this.attendance,
     this.userInfo,
     this.marks,
+    this.facultyInfo,
     this.subcodetoName,
   });
 
@@ -22,6 +23,7 @@ class Details {
   final Map<String, List<String>>? attendance;
   final Map<String, dynamic>? userInfo;
   final Map<String, List<double>>? marks;
+  final List<List<String>>? facultyInfo;
   final SubcodetoName? subcodetoName;
 
   factory Details.fromJson(Map<String, dynamic> json) => Details(
@@ -35,6 +37,8 @@ class Details {
         marks: Map.from(json["marks"]).map((k, v) =>
             MapEntry<String, List<double>>(
                 k, List<double>.from(v.map((x) => x)))),
+        facultyInfo: List<List<String>>.from(
+            json["facultyInfo"].map((x) => List<String>.from(x.map((x) => x)))),
         subcodetoName: SubcodetoName.fromJson(json["SubcodetoName"]),
       );
 
@@ -47,6 +51,8 @@ class Details {
             .map((k, v) => MapEntry<String, dynamic>(k, v as String)),
         "marks": Map.from(marks!).map((k, v) =>
             MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
+        "facultyInfo": List<dynamic>.from(
+            facultyInfo!.map((x) => List<dynamic>.from(x.map((x) => x)))),
         "SubcodetoName": subcodetoName!.toJson(),
       };
 }

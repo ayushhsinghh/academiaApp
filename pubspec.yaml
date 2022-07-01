@@ -87,6 +87,7 @@ flutter:
     - assets/json/UnderMaintenance.json
     - assets/json/no-internet.json
     - assets/json/Wrongpassword.json
+    - assets/json/Profilebackground.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

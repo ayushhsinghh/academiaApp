@@ -16,6 +16,7 @@ class AttendanceContainer extends StatelessWidget {
     String param = studentInfo.attendance!.keys.elementAt(index);
     List<String>? value = studentInfo.attendance![param];
     double percent = double.parse(value![7]);
+    double percent1 = 76.0;
     int present = int.parse(value[5]) - int.parse(value[6]);
     if (kDebugMode) {
       print("running");
@@ -26,12 +27,12 @@ class AttendanceContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        gradient: percent > 75
-            ? LinearGradient(
-                colors: [(Colors.green.shade400), Colors.greenAccent],
+        gradient: percent1 < 75
+            ? const LinearGradient(
+                colors: [Colors.redAccent, Colors.white],
               )
-            : LinearGradient(
-                colors: [(Colors.red.shade300), Colors.redAccent],
+            : const LinearGradient(
+                colors: [Colors.greenAccent, Colors.white],
               ),
         boxShadow: [
           // BoxShadow(
@@ -89,7 +90,7 @@ class AttendanceContainer extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          progressColor: percent > 75
+                          progressColor: percent1 > 75
                               ? Colors.green.shade800
                               : Colors.red.shade800,
                         ),
@@ -119,8 +120,8 @@ class AttendanceContainer extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     value[5],
-                    style: TextStyle(
-                      color: Colors.grey[300],
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -139,8 +140,8 @@ class AttendanceContainer extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     present.toString(),
-                    style: TextStyle(
-                      color: Colors.grey[300],
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -159,8 +160,8 @@ class AttendanceContainer extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     value[6],
-                    style: TextStyle(
-                      color: Colors.grey[300],
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -180,7 +181,8 @@ class AttendanceContainer extends StatelessWidget {
                   Text(
                     value[7],
                     style: TextStyle(
-                        color: Colors.grey[300],
+                        color:
+                            (percent1 < 75.0) ? Colors.redAccent : Colors.green,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),

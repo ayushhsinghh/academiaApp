@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:srmacadmia/Views/Profile/ProfilePage.dart';
 
 import '../../Controllers/AcadControllers.dart';
 import '../../models/Details.dart';
@@ -146,19 +147,16 @@ class AttendancePage extends StatelessWidget {
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                items: [
+                items: const [
                   BottomNavigationBarItem(
-                    icon: AnimatedIcon(
-                      icon: AnimatedIcons.pause_play,
-                      progress: controller.animationController,
-                    ),
+                    icon: Icon(Icons.menu_book),
                     label: 'Attendance',
                   ),
-                  const BottomNavigationBarItem(
-                    icon: Icon(Icons.calendar_today),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.dataset),
                     label: 'Marks',
                   ),
-                  const BottomNavigationBarItem(
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.person),
                     label: 'Profile',
                   ),
@@ -220,7 +218,6 @@ class AttendancePage extends StatelessWidget {
               },
               child: ListView.builder(
                   shrinkWrap: true,
-                  clipBehavior: Clip.none,
                   controller: ScrollController(),
                   itemCount: snapshot.attendance!.length,
                   itemBuilder: (context, index) {
@@ -245,15 +242,8 @@ class AttendancePage extends StatelessWidget {
   }
 
   ProfileBuilder(AsyncSnapshot<Details> snapshot) {
-    return ListView.builder(
-      controller: ScrollController(),
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text("hello"),
-          trailing: Text("$index"),
-        );
-      },
-      itemCount: 14,
+    return ProfilePage(
+      studentInfo: snapshot.data!,
     );
   }
 }
