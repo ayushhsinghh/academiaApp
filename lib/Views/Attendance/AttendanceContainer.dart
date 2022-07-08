@@ -17,6 +17,8 @@ class AttendanceContainer extends StatelessWidget {
     List<String>? value = studentInfo.attendance![param];
     double percent = double.parse(value![7]);
     double percent1 = 76.0;
+    int canBunk = (int.parse(value[5]) * 0.25 - int.parse(value[6])).toInt();
+    int classRequired = int.parse(value[6]) * 4 - int.parse(value[5]).toInt();
     int present = int.parse(value[5]) - int.parse(value[6]);
     if (kDebugMode) {
       print("running");
@@ -27,7 +29,7 @@ class AttendanceContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
-        gradient: percent1 < 75
+        gradient: percent < 75
             ? const LinearGradient(
                 colors: [Colors.redAccent, Colors.white],
               )
@@ -38,11 +40,17 @@ class AttendanceContainer extends StatelessWidget {
           // BoxShadow(
           //   color: (Colors.grey[900])!,
           // ),
-          BoxShadow(
-              color: Colors.green.withOpacity(0.5),
-              offset: const Offset(0, 18),
-              blurRadius: 3,
-              spreadRadius: -10)
+          percent > 75
+              ? BoxShadow(
+                  color: Colors.greenAccent.withOpacity(0.5),
+                  offset: const Offset(0, 18),
+                  blurRadius: 3,
+                  spreadRadius: -10)
+              : BoxShadow(
+                  color: Colors.redAccent.withOpacity(0.5),
+                  offset: const Offset(0, 18),
+                  blurRadius: 3,
+                  spreadRadius: -10)
         ],
       ),
       child: Column(
@@ -90,7 +98,7 @@ class AttendanceContainer extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          progressColor: percent1 > 75
+                          progressColor: percent > 75
                               ? Colors.green.shade800
                               : Colors.red.shade800,
                         ),
@@ -179,16 +187,16 @@ class AttendanceContainer extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    value[7],
+                    percent > 75 ? "${canBunk}" : "${classRequired}",
                     style: TextStyle(
                         color:
-                            (percent1 < 75.0) ? Colors.redAccent : Colors.green,
+                            (percent < 75.0) ? Colors.redAccent : Colors.green,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
                   const SizedBox(height: 3.0),
                   Text(
-                    "Can Bunk",
+                    percent >= 75 ? "Can Bunk" : "Required",
                     style: TextStyle(
                       color: Colors.grey[900],
                       fontWeight: FontWeight.bold,

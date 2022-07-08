@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:srmacadmia/Views/Profile/ProfilePage.dart';
@@ -23,12 +25,13 @@ class AttendancePage extends StatelessWidget {
     if (kDebugMode) {
       print("hello");
     }
+    final box = GetStorage('login');
     return Scaffold(
       // appBar: AppBar(
       //   title: const Text("Attendance"),
       //   centerTitle: true,
       // ),
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Color(0xff202054),
       body: Center(
         child: FutureBuilder<Details>(
           future: controller
@@ -63,6 +66,17 @@ class AttendancePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          box.remove('email');
+                          box.remove('password');
+
+                          Get.offAllNamed('/login');
+                        },
+                        child: const Text("Login Again"))
                   ],
                 );
               } else if (snapshot.error.toString().contains('error [500]')) {
@@ -83,6 +97,48 @@ class AttendancePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          box.remove('email');
+                          box.remove('password');
+
+                          Get.offAllNamed('/login');
+                        },
+                        child: const Text("Login Again"))
+                  ],
+                );
+              } else if (snapshot.error.toString().contains('error [422]')) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      'assets/json/character-animation.json',
+                      repeat: true,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      '422 : unable to process the contained instructions',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          box.remove('email');
+                          box.remove('password');
+
+                          Get.offAllNamed('/login');
+                        },
+                        child: const Text("Login Again"))
                   ],
                 );
               } else {
@@ -136,35 +192,55 @@ class AttendancePage extends StatelessWidget {
       //   ),
       // ),
       bottomNavigationBar: controller.checkConnection.value
-          ? Obx(() => BottomNavigationBar(
-                unselectedItemColor: Colors.black,
-                selectedItemColor: Colors.redAccent,
-                onTap: controller.changeTabIndex,
-                currentIndex: controller.tabIndex.value,
-                showSelectedLabels: true,
-                showUnselectedLabels: false,
-                enableFeedback: true,
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.menu_book),
-                    label: 'Attendance',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.dataset),
-                    label: 'Marks',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: 'Profile',
-                  ),
+          ? Obx(() => BottomNavyBar(
+                selectedIndex: controller.tabIndex.value,
+                showElevation: true, // use this to remove appBar's elevation
+                onItemSelected: controller.changeTabIndex,
+                items: [
+                  BottomNavyBarItem(
+                      icon: const Icon(Icons.menu_book),
+                      title: const Text('Attendance'),
+                      activeColor: Colors.green.shade400),
+                  BottomNavyBarItem(
+                      icon: const Icon(Icons.dataset),
+                      title: const Text('Marks'),
+                      activeColor: Colors.purpleAccent),
+                  BottomNavyBarItem(
+                      icon: const Icon(Icons.person),
+                      title: const Text('Profile'),
+                      activeColor: Colors.blue.shade600),
                 ],
               ))
           : null,
     );
   }
+
+  // BottomNavigationBar(
+  //               unselectedItemColor: Colors.black,
+  //               selectedItemColor: Colors.black,
+  //               onTap: controller.changeTabIndex,
+  //               currentIndex: controller.tabIndex.value,
+  //               showSelectedLabels: true,
+  //               showUnselectedLabels: false,
+  //               enableFeedback: true,
+  //               type: BottomNavigationBarType.fixed,
+  //               backgroundColor: Colors.transparent,
+  //               elevation: 0,
+  //               items: const [
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(Icons.menu_book),
+  //                   label: 'Attendance',
+  //                 ),
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(Icons.dataset),
+  //                   label: 'Marks',
+  //                 ),
+  //                 BottomNavigationBarItem(
+  //                   icon: Icon(Icons.person),
+  //                   label: 'Profile',
+  //                 ),
+  //               ],
+  //             )
 
   SizedBox shimmerEffectAttandance(BuildContext context) {
     return SizedBox(
@@ -216,29 +292,67 @@ class AttendancePage extends StatelessWidget {
                 snapshot = await controller.getData();
                 return;
               },
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  controller: ScrollController(),
-                  itemCount: snapshot.attendance!.length,
-                  itemBuilder: (context, index) {
-                    return AttendanceContainer(
-                      studentInfo: (snapshot),
-                      index: index,
-                    );
-                  }),
+              child: snapshot.attendance!.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset(
+                            'assets/json/no-data-found.json',
+                            repeat: true,
+                          ),
+                          const Text(
+                            "No Data Available",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      controller: ScrollController(),
+                      itemCount: snapshot.attendance!.length,
+                      itemBuilder: (context, index) {
+                        return AttendanceContainer(
+                          studentInfo: (snapshot),
+                          index: index,
+                        );
+                      }),
             ));
   }
 
   MarksBuilder(AsyncSnapshot<Details> snapshot) {
-    return ListView.builder(
-        controller: ScrollController(),
-        itemCount: snapshot.data!.marks!.length,
-        itemBuilder: (context, index) {
-          return MarksContainer(
-            studentInfo: (snapshot.data)!,
-            index: index,
-          );
-        });
+    return snapshot.data!.marks!.isEmpty
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  'assets/json/no-data-found.json',
+                  repeat: true,
+                ),
+                const Text(
+                  "No Data Available",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : ListView.builder(
+            controller: ScrollController(),
+            itemCount: snapshot.data!.marks!.length,
+            itemBuilder: (context, index) {
+              return MarksContainer(
+                studentInfo: (snapshot.data)!,
+                index: index,
+              );
+            });
   }
 
   ProfileBuilder(AsyncSnapshot<Details> snapshot) {

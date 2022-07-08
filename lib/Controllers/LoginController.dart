@@ -26,12 +26,12 @@ class LoginController extends GetxController {
     passwordController.dispose();
   }
 
-  String? validateEmail(String value) {
-    if (!GetUtils.isEmail(value)) {
-      return 'Please enter a valid email';
+  bool validateEmail() {
+    if (GetUtils.isEmail(emailController.text)) {
+      return false;
     }
 
-    return null;
+    return true;
   }
 
   String? validatePassword(String value) {

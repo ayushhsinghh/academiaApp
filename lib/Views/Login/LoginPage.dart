@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../Controllers/LoginController.dart';
 import '../constants.dart';
@@ -11,7 +12,9 @@ import 'Components/PasswordInput.dart';
 import 'Components/RoundedButton.dart';
 
 class LoginPage extends GetView<LoginController> {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
+
+  final box = GetStorage('login');
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +77,9 @@ class LoginPage extends GetView<LoginController> {
                                     onSaved: (value) {
                                       controller.email = value!;
                                     },
+                                    onChanged: (value) {
+                                      controller.email = value;
+                                    },
                                     // validator: (value) {
                                     //   return controller.validateEmail(value!);
                                     // },
@@ -126,6 +132,9 @@ class LoginPage extends GetView<LoginController> {
                                         onSaved: (value) {
                                           controller.password = value!;
                                         },
+                                        onChanged: (value) {
+                                          controller.password = value;
+                                        },
                                         controller:
                                             controller.passwordController,
                                         obscureText: controller.isvisible.value,
@@ -159,7 +168,35 @@ class LoginPage extends GetView<LoginController> {
                                 ),
                                 child: TextButton(
                                   onPressed: () {
-                                    Get.offAllNamed('/attendance');
+                                    if (controller.validateEmail()) {
+                                      print("check email");
+                                      Get.snackbar(
+                                          'Error', 'Wrong Email Format',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.red,
+                                          borderRadius: 10,
+                                          margin: const EdgeInsets.all(10),
+                                          duration: const Duration(seconds: 2));
+                                    } else if (controller.email != '' &&
+                                        controller.password != '') {
+                                      box.write("email", controller.email);
+                                      box.write(
+                                          "password", controller.password);
+                                      print("Data Written");
+
+                                      // box.remove("email");
+                                      // box.remove("password");
+
+                                      Get.offAllNamed('/attendance');
+                                    } else {
+                                      Get.snackbar(
+                                          'Error', 'Please fill all the fields',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.red,
+                                          borderRadius: 10,
+                                          margin: const EdgeInsets.all(10),
+                                          duration: const Duration(seconds: 2));
+                                    }
                                   },
                                   child: const Padding(
                                     padding:

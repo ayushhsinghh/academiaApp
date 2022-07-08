@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../models/Details.dart';
@@ -7,9 +9,11 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key, required this.studentInfo}) : super(key: key);
 
   final Details studentInfo;
+
   @override
   Widget build(BuildContext context) {
     List<List<String>>? facultyIndo = studentInfo.facultyInfo;
+    final box = GetStorage('login');
     return Scaffold(
         backgroundColor: Colors.blue.shade100,
         body: CustomScrollView(
@@ -17,9 +21,14 @@ class ProfilePage extends StatelessWidget {
             SliverAppBar(
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.settings),
+                  icon: const Icon(Icons.logout),
                   color: Colors.black,
-                  onPressed: () {},
+                  onPressed: () {
+                    box.remove('email');
+                    box.remove('password');
+
+                    Get.offAllNamed('/login');
+                  },
                 ),
               ],
               backgroundColor: Colors.blue.shade100,
@@ -89,9 +98,9 @@ class ProfilePage extends StatelessWidget {
                                     color: Colors.black),
                               ),
                               const SizedBox(height: 10.0),
-                              const Text(
-                                "Practical",
-                                style: TextStyle(
+                              Text(
+                                value[6],
+                                style: const TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black),

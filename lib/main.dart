@@ -4,6 +4,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'Views/Undermaintenance.dart';
 import 'Views/Attendance/AttedancePage.dart';
@@ -22,13 +23,15 @@ Future<void> main() async {
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
+  await GetStorage.init('login');
+
   runApp(MyApp());
 }
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -36,6 +39,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
+  bool islogedIn = false;
+  final box = GetStorage('login');
 
   Future<void> _initConfig() async {
     await _remoteConfig.setConfigSettings(RemoteConfigSettings(
@@ -53,6 +58,18 @@ class _MyAppState extends State<MyApp> {
     _fetchConfig();
   }
 
+  bool _checkLogin() {
+    // box.remove("email");
+    // box.remove("password");
+    if (box.read('email') != null &&
+        box.read('password') != null &&
+        box.read('email') != '' &&
+        box.read('password') != '') {
+      return true;
+    }
+    return false;
+  }
+
   // Fetching, caching, and activating remote config
   void _fetchConfig() async {
     await _remoteConfig.fetchAndActivate();
@@ -61,6 +78,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _initConfig();
+    islogedIn = _checkLogin();
     super.initState();
   }
 
@@ -75,14 +93,13 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-      initialRoute:
-          _remoteConfig.getBool("ShowApp") ? '/login' : '/undermaintenance',
+      initialRoute: _remoteConfig.getBool("ShowApp")
+          ? (islogedIn ? '/attendance' : '/login')
+          : '/undermaintenance',
       defaultTransition: Transition.zoom,
       getPages: [
         GetPage(
-            name: '/login',
-            page: () => const LoginPage(),
-            binding: LoginBinding()),
+            name: '/login', page: () => LoginPage(), binding: LoginBinding()),
         GetPage(
           name: '/attendance',
           page: () => const AttendancePage(

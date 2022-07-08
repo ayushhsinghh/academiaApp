@@ -24,7 +24,7 @@ class Details {
   final Map<String, dynamic>? userInfo;
   final Map<String, List<double>>? marks;
   final List<List<String>>? facultyInfo;
-  final SubcodetoName? subcodetoName;
+  final Map<String, dynamic>? subcodetoName;
 
   factory Details.fromJson(Map<String, dynamic> json) => Details(
         attendanceFieldName:
@@ -39,7 +39,8 @@ class Details {
                 k, List<double>.from(v.map((x) => x)))),
         facultyInfo: List<List<String>>.from(
             json["facultyInfo"].map((x) => List<String>.from(x.map((x) => x)))),
-        subcodetoName: SubcodetoName.fromJson(json["SubcodetoName"]),
+        subcodetoName: Map.from(json["SubcodetoName"])
+            .map((k, v) => MapEntry<String, String>(k, v)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,65 +54,66 @@ class Details {
             MapEntry<String, dynamic>(k, List<dynamic>.from(v.map((x) => x)))),
         "facultyInfo": List<dynamic>.from(
             facultyInfo!.map((x) => List<dynamic>.from(x.map((x) => x)))),
-        "SubcodetoName": subcodetoName!.toJson(),
+        "SubcodetoName": Map.from(subcodetoName!)
+            .map((k, v) => MapEntry<String, String>(k, v)),
       };
 }
 
-class SubcodetoName {
-  SubcodetoName({
-    required this.the18Csc303J,
-    required this.the18Lem110L,
-    required this.the18Cse354T,
-    required this.the18Csc304J,
-    required this.the18Cse386T,
-    required this.the18Csc350T,
-    required this.the18Pdh201T,
-    required this.the18Csc305J,
-    required this.the18Ceo406T,
-    required this.the18Csp104L,
-    required this.the18Csc307L,
-  });
+// class SubcodetoName {
+//   SubcodetoName({
+//     required this.the18Csc303J,
+//     required this.the18Lem110L,
+//     required this.the18Cse354T,
+//     required this.the18Csc304J,
+//     required this.the18Cse386T,
+//     required this.the18Csc350T,
+//     required this.the18Pdh201T,
+//     required this.the18Csc305J,
+//     required this.the18Ceo406T,
+//     required this.the18Csp104L,
+//     required this.the18Csc307L,
+//   });
 
-  final String the18Csc303J;
-  final String the18Lem110L;
-  final String the18Cse354T;
-  final String the18Csc304J;
-  final String the18Cse386T;
-  final String the18Csc350T;
-  final String the18Pdh201T;
-  final String the18Csc305J;
-  final String the18Ceo406T;
-  final String the18Csp104L;
-  final String the18Csc307L;
+//   final String the18Csc303J;
+//   final String the18Lem110L;
+//   final String the18Cse354T;
+//   final String the18Csc304J;
+//   final String the18Cse386T;
+//   final String the18Csc350T;
+//   final String the18Pdh201T;
+//   final String the18Csc305J;
+//   final String the18Ceo406T;
+//   final String the18Csp104L;
+//   final String the18Csc307L;
 
-  factory SubcodetoName.fromJson(Map<String, dynamic> json) => SubcodetoName(
-        the18Csc303J: json["18CSC303J"],
-        the18Lem110L: json["18LEM110L"],
-        the18Cse354T: json["18CSE354T"],
-        the18Csc304J: json["18CSC304J"],
-        the18Cse386T: json["18CSE386T"],
-        the18Csc350T: json["18CSC350T"],
-        the18Pdh201T: json["18PDH201T"],
-        the18Csc305J: json["18CSC305J"],
-        the18Ceo406T: json["18CEO406T"],
-        the18Csp104L: json["18CSP104L"],
-        the18Csc307L: json["18CSC307L"],
-      );
+//   factory SubcodetoName.fromJson(Map<String, dynamic> json) => SubcodetoName(
+//         the18Csc303J: json["18CSC303J"],
+//         the18Lem110L: json["18LEM110L"],
+//         the18Cse354T: json["18CSE354T"],
+//         the18Csc304J: json["18CSC304J"],
+//         the18Cse386T: json["18CSE386T"],
+//         the18Csc350T: json["18CSC350T"],
+//         the18Pdh201T: json["18PDH201T"],
+//         the18Csc305J: json["18CSC305J"],
+//         the18Ceo406T: json["18CEO406T"],
+//         the18Csp104L: json["18CSP104L"],
+//         the18Csc307L: json["18CSC307L"],
+//       );
 
-  Map<String, dynamic> toJson() => {
-        "18CSC303J": the18Csc303J,
-        "18LEM110L": the18Lem110L,
-        "18CSE354T": the18Cse354T,
-        "18CSC304J": the18Csc304J,
-        "18CSE386T": the18Cse386T,
-        "18CSC350T": the18Csc350T,
-        "18PDH201T": the18Pdh201T,
-        "18CSC305J": the18Csc305J,
-        "18CEO406T": the18Ceo406T,
-        "18CSP104L": the18Csp104L,
-        "18CSC307L": the18Csc307L,
-      };
-}
+//   Map<String, dynamic> toJson() => {
+//         "18CSC303J": the18Csc303J,
+//         "18LEM110L": the18Lem110L,
+//         "18CSE354T": the18Cse354T,
+//         "18CSC304J": the18Csc304J,
+//         "18CSE386T": the18Cse386T,
+//         "18CSC350T": the18Csc350T,
+//         "18PDH201T": the18Pdh201T,
+//         "18CSC305J": the18Csc305J,
+//         "18CEO406T": the18Ceo406T,
+//         "18CSP104L": the18Csp104L,
+//         "18CSC307L": the18Csc307L,
+//       };
+// }
 
 // class UserInfo {
 //   UserInfo({

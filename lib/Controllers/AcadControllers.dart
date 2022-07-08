@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:srmacadmia/models/Details.dart';
 
 import '../services/httpService.dart';
@@ -15,9 +16,10 @@ class AcadDataController extends GetxController
   HttpService dhttp = HttpService();
   var tabIndex = 0.obs;
   var checkConnection = true.obs;
+  late GetStorage box;
 
-  String EMAIL = dotenv.env['EMAIL']!;
-  String PASSWORD = dotenv.env['PASSWORD']!;
+  late String EMAIL = box.read('email');
+  late String PASSWORD = box.read('password');
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
@@ -26,6 +28,7 @@ class AcadDataController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    box = GetStorage('login');
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(

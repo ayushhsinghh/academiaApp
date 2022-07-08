@@ -32,10 +32,12 @@ class MarksContainer extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       decoration: BoxDecoration(
+        // color: Color(0xff5264AE),
         borderRadius: BorderRadius.circular(15.0),
         gradient: percent > 75
-            ? LinearGradient(
-                colors: [(Colors.green.shade400), Colors.greenAccent],
+            ? const LinearGradient(
+                colors: [Color(0xff211C65), (Color(0xff7C4179))],
+                transform: GradientRotation(-0.785),
               )
             : LinearGradient(
                 colors: [(Colors.red.shade300), Colors.redAccent],
@@ -45,7 +47,7 @@ class MarksContainer extends StatelessWidget {
           //   color: (Colors.grey[900])!,
           // ),
           BoxShadow(
-              color: Colors.green.withOpacity(0.5),
+              color: Colors.white12.withOpacity(0.3),
               offset: const Offset(0, 18),
               blurRadius: 3,
               spreadRadius: -10)
@@ -98,7 +100,7 @@ class MarksContainer extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   decoration: BoxDecoration(
-                    color: Colors.redAccent,
+                    color: Color(0xff1FC4DA),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Center(
