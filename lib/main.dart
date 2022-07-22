@@ -6,9 +6,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'Views/HomePage/HomePage.dart';
+import 'Views/HomePage/binding.dart';
 import 'Views/Undermaintenance.dart';
-import 'Views/Attendance/AttedancePage.dart';
-import 'Views/Attendance/Binding.dart';
 import 'Views/Login/Binding.dart';
 import 'Views/Login/LoginPage.dart';
 
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'SRM Academia',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -94,18 +94,18 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       initialRoute: _remoteConfig.getBool("ShowApp")
-          ? (islogedIn ? '/attendance' : '/login')
+          ? (islogedIn ? '/home' : '/login')
           : '/undermaintenance',
       defaultTransition: Transition.zoom,
       getPages: [
         GetPage(
             name: '/login', page: () => LoginPage(), binding: LoginBinding()),
         GetPage(
-          name: '/attendance',
-          page: () => const AttendancePage(
+          name: '/home',
+          page: () => const HomePage(
             title: 'Academia',
           ),
-          binding: AttendanceBinding(),
+          binding: HomeBinding(),
         ),
         GetPage(
           name: '/undermaintenance',

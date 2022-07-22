@@ -2,6 +2,7 @@
 // Language: dart
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class UnderMaintenance extends StatelessWidget {
@@ -20,6 +21,13 @@ class UnderMaintenance extends StatelessWidget {
               repeat: true,
             ),
             Text(message),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              child: const Text('Reload'),
+              onPressed: () => Get.offAllNamed('/login'),
+            ),
           ],
         ),
       ),

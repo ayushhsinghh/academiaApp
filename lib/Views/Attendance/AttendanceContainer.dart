@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:srmacadmia/models/Details.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+
+import '../../models/Details.dart';
 
 class AttendanceContainer extends StatelessWidget {
   const AttendanceContainer(

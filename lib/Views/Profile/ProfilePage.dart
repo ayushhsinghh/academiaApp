@@ -14,21 +14,23 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<List<String>>? facultyIndo = studentInfo.facultyInfo;
     final box = GetStorage('login');
+    final GlobalKey<ScaffoldState> _key = GlobalKey();
     return Scaffold(
+        key: _key,
+        endDrawer: const Drawer(
+          child: Text("Drawer"),
+        ),
         backgroundColor: Colors.blue.shade100,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              automaticallyImplyLeading: false,
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.logout),
+                  iconSize: 35,
+                  icon: const Icon(Icons.short_text),
                   color: Colors.black,
-                  onPressed: () {
-                    box.remove('email');
-                    box.remove('password');
-
-                    Get.offAllNamed('/login');
-                  },
+                  onPressed: () => _key.currentState!.openEndDrawer(),
                 ),
               ],
               backgroundColor: Colors.blue.shade100,
@@ -54,6 +56,8 @@ class ProfilePage extends StatelessWidget {
                     childCount: facultyIndo!.length, (context, index) {
               List<String>? value = facultyIndo[index];
               double percent = 76.0;
+              bool isPractical = value[6].contains('Practical');
+              // print("${value[8].length}");
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                 alignment: Alignment.center,
@@ -84,26 +88,27 @@ class ProfilePage extends StatelessWidget {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width * 0.2,
                           // color: Colors.white,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                value[8],
-                                style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                              Center(
+                                child: Text(
+                                  value[8],
+                                  style: TextStyle(
+                                      fontSize: isPractical ? 13.0 : 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
                               ),
                               const SizedBox(height: 10.0),
                               Text(
                                 value[6],
                                 style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                    fontSize: 18.0, color: Colors.black),
                               ),
                             ],
                           ),
@@ -136,18 +141,6 @@ class ProfilePage extends StatelessWidget {
                                     "Subject Code : ${value[1]}",
                                   ),
                                   const SizedBox(width: 15.0),
-
-                                  // Container(
-                                  //   height: 100,
-                                  //   // width: ,
-                                  //   child: Text(
-                                  //     value[8],
-                                  //     style: const TextStyle(
-                                  //       fontSize: 20.0,
-                                  //       fontWeight: FontWeight.bold,
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                               Row(

@@ -182,12 +182,12 @@ class LoginPage extends GetView<LoginController> {
                                       box.write("email", controller.email);
                                       box.write(
                                           "password", controller.password);
-                                      print("Data Written");
+                                      // print("Data Written");
 
                                       // box.remove("email");
                                       // box.remove("password");
 
-                                      Get.offAllNamed('/attendance');
+                                      Get.offAllNamed('/home');
                                     } else {
                                       Get.snackbar(
                                           'Error', 'Please fill all the fields',

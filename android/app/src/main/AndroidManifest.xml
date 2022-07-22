@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.srmacadmia">
    <application
-        android:label="srmacadmia"
+        android:label="Thook"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

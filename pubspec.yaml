@@ -1,4 +1,4 @@
-name: srmacadmia
+name: srmacademia
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -55,6 +55,7 @@ dependencies:
 
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
 
@@ -64,6 +65,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  icons_launcher: ^1.2.1
+
+flutter_icons:
+  image_path: 'assets/icons8-myspace-100.png'
+  ios: true
+  android: true
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -90,6 +98,7 @@ flutter:
     - assets/json/Wrongpassword.json
     - assets/json/Profilebackground.json
     - assets/json/no-data-found.json
+    - assets/json/lf20_bdopy9fg.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

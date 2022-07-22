@@ -2,16 +2,17 @@ import 'package:alice/alice.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
-import 'package:srmacadmia/main.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../main.dart';
 
 class HttpService {
   late Dio _dio;
-  final Alice _alice = Alice(
-      showNotification: true,
-      darkTheme: false,
-      navigatorKey: navigatorKey,
-      maxCallsCount: 1000);
+  // final Alice _alice = Alice(
+  //     showNotification: true,
+  //     darkTheme: false,
+  //     navigatorKey: navigatorKey,
+  //     maxCallsCount: 1000);
 
   String baseURL = dotenv.env['BASE_URL']!;
 
@@ -23,9 +24,9 @@ class HttpService {
     );
 
     // initializeInterceptors();
-    _dio.interceptors.add(_alice.getDioInterceptor());
-    // _dio.interceptors
-    //     .add(DioCacheManager(CacheConfig(baseUrl: baseURL)).interceptor);
+    // _dio.interceptors.add(_alice.getDioInterceptor());
+    _dio.interceptors
+        .add(DioCacheManager(CacheConfig(baseUrl: baseURL)).interceptor);
   }
 
   Future<Response> getRequest(
@@ -33,12 +34,10 @@ class HttpService {
     Response response;
 
     try {
-      response = await _dio.get(
-        endPoint,
-        queryParameters: query,
-        // options: buildCacheOptions(const Duration(minutes: 5),
-        //     maxStale: const Duration(minutes: 10))
-      );
+      response = await _dio.get(endPoint,
+          queryParameters: query,
+          options: buildCacheOptions(const Duration(minutes: 5),
+              maxStale: const Duration(minutes: 10)));
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e.message);

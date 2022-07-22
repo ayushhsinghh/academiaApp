@@ -1,11 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:srmacadmia/models/Details.dart';
 
+import '../models/Details.dart';
 import '../services/httpService.dart';
 
 class AcadDataController extends GetxController
@@ -17,12 +16,22 @@ class AcadDataController extends GetxController
   var tabIndex = 0.obs;
   var checkConnection = true.obs;
   late GetStorage box;
+  var bottomNavColor = Colors.white.obs;
 
   late String EMAIL = box.read('email');
   late String PASSWORD = box.read('password');
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
+    if (index == 0) {
+      bottomNavColor.value = Colors.blue.shade100;
+    }
+    if (index == 1) {
+      bottomNavColor.value = const Color(0xff30307E);
+    }
+    if (index == 2) {
+      bottomNavColor.value = Colors.blue.shade100;
+    }
   }
 
   @override
