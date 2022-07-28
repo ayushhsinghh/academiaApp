@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../models/Details.dart';
+import 'Components/Drawer.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key, required this.studentInfo}) : super(key: key);
@@ -17,9 +18,7 @@ class ProfilePage extends StatelessWidget {
     final GlobalKey<ScaffoldState> _key = GlobalKey();
     return Scaffold(
         key: _key,
-        endDrawer: const Drawer(
-          child: Text("Drawer"),
-        ),
+        endDrawer: MyDrawer(userInfo: studentInfo.userInfo!),
         backgroundColor: Colors.blue.shade100,
         body: CustomScrollView(
           slivers: [

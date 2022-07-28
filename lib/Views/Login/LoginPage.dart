@@ -168,8 +168,18 @@ class LoginPage extends GetView<LoginController> {
                                 ),
                                 child: TextButton(
                                   onPressed: () {
-                                    if (controller.validateEmail()) {
-                                      print("check email");
+                                    if (controller.email == '' ||
+                                        controller.password == '') {
+                                      Get.snackbar(
+                                          'Error', 'Please fill all the fields',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          backgroundColor: Colors.red,
+                                          colorText: Colors.white,
+                                          borderRadius: 10,
+                                          margin: const EdgeInsets.all(10),
+                                          duration: const Duration(seconds: 2));
+                                    } else if (controller.validateEmail()) {
+                                      // print("check email");
                                       Get.snackbar(
                                           'Error', 'Wrong Email Format',
                                           snackPosition: SnackPosition.BOTTOM,
@@ -182,15 +192,11 @@ class LoginPage extends GetView<LoginController> {
                                       box.write("email", controller.email);
                                       box.write(
                                           "password", controller.password);
-                                      // print("Data Written");
-
-                                      // box.remove("email");
-                                      // box.remove("password");
 
                                       Get.offAllNamed('/home');
                                     } else {
                                       Get.snackbar(
-                                          'Error', 'Please fill all the fields',
+                                          'Error', 'Something Went Wrong',
                                           snackPosition: SnackPosition.BOTTOM,
                                           backgroundColor: Colors.red,
                                           borderRadius: 10,

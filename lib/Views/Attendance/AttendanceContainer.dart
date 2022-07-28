@@ -41,7 +41,7 @@ class AttendanceContainer extends StatelessWidget {
           // BoxShadow(
           //   color: (Colors.grey[900])!,
           // ),
-          percent > 75
+          percent >= 75
               ? BoxShadow(
                   color: Colors.greenAccent.withOpacity(0.5),
                   offset: const Offset(0, 18),
@@ -99,9 +99,11 @@ class AttendanceContainer extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          progressColor: percent > 75
-                              ? Colors.green.shade800
-                              : Colors.red.shade800,
+                          progressColor: percent == 75
+                              ? Colors.yellow.shade800
+                              : percent > 75
+                                  ? Colors.green.shade600
+                                  : Colors.red.shade600,
                         ),
                       ],
                     ),

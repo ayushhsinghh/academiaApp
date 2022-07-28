@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -8,6 +10,9 @@ import 'package:get_storage/get_storage.dart';
 
 import 'Views/HomePage/HomePage.dart';
 import 'Views/HomePage/binding.dart';
+import 'Views/Profile/Components/Announcement.dart';
+import 'Views/Profile/Components/UnifiedTT1.dart';
+import 'Views/Profile/Components/UnifiedTT2.dart';
 import 'Views/Undermaintenance.dart';
 import 'Views/Login/Binding.dart';
 import 'Views/Login/LoginPage.dart';
@@ -50,9 +55,12 @@ class _MyAppState extends State<MyApp> {
           seconds:
               10), // fetch parameters will be cached for a maximum of 1 hour
     ));
-    await _remoteConfig.setDefaults(const {
+    var defaultValue = {};
+    await _remoteConfig.setDefaults({
       "ShowApp": true,
       'maintenanceDisplay': "Under Maintenance",
+      'AppLink': "No Link Available",
+      'announcement': json.encode(defaultValue)
     });
 
     _fetchConfig();
@@ -73,6 +81,9 @@ class _MyAppState extends State<MyApp> {
   // Fetching, caching, and activating remote config
   void _fetchConfig() async {
     await _remoteConfig.fetchAndActivate();
+
+    box.write("AppLink", _remoteConfig.getString('AppLink'));
+    box.write("announcement", _remoteConfig.getString('announcement'));
   }
 
   @override
@@ -85,6 +96,7 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    bool showApp = _remoteConfig.getBool('ShowApp');
     return GetMaterialApp(
       title: 'SRM Academia',
       theme: ThemeData(
@@ -93,10 +105,9 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
-      initialRoute: _remoteConfig.getBool("ShowApp")
-          ? (islogedIn ? '/home' : '/login')
-          : '/undermaintenance',
-      defaultTransition: Transition.zoom,
+      initialRoute:
+          showApp ? (islogedIn ? '/home' : '/login') : '/undermaintenance',
+      defaultTransition: Transition.size,
       getPages: [
         GetPage(
             name: '/login', page: () => LoginPage(), binding: LoginBinding()),
@@ -113,6 +124,9 @@ class _MyAppState extends State<MyApp> {
             message: _remoteConfig.getString('maintenanceDisplay'),
           ),
         ),
+        GetPage(name: '/announcements', page: () => const Announcement()),
+        GetPage(name: '/UnifiedTT1', page: () => const UnifiedTT1()),
+        GetPage(name: '/UnifiedTT2', page: () => const UnifiedTT2()),
       ],
     );
   }

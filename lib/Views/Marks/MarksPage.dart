@@ -47,7 +47,7 @@ class MarksPage extends StatelessWidget {
                 print("$marks");
               }
 
-              double percent = 76.00;
+              // double percent = 76.00;
               // print("${value[8].length}");
               return Container(
                 margin: const EdgeInsets.all(7),

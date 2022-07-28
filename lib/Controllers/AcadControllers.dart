@@ -16,7 +16,7 @@ class AcadDataController extends GetxController
   var tabIndex = 0.obs;
   var checkConnection = true.obs;
   late GetStorage box;
-  var bottomNavColor = Colors.white.obs;
+  var bottomNavColor = Colors.blue.shade100.obs;
 
   late String EMAIL = box.read('email');
   late String PASSWORD = box.read('password');

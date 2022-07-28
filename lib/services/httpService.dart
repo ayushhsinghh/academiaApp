@@ -1,4 +1,3 @@
-import 'package:alice/alice.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
@@ -36,8 +35,8 @@ class HttpService {
     try {
       response = await _dio.get(endPoint,
           queryParameters: query,
-          options: buildCacheOptions(const Duration(minutes: 5),
-              maxStale: const Duration(minutes: 10)));
+          options: buildCacheOptions(const Duration(minutes: 1),
+              maxStale: const Duration(minutes: 1)));
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e.message);

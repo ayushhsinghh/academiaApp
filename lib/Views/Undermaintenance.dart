@@ -2,7 +2,6 @@
 // Language: dart
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class UnderMaintenance extends StatelessWidget {
@@ -14,19 +13,39 @@ class UnderMaintenance extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const SizedBox(
+              height: 10,
+            ),
+
             Lottie.asset(
               'assets/json/UnderMaintenance.json',
               repeat: true,
             ),
-            Text(message),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              child: const Text('Reload'),
-              onPressed: () => Get.offAllNamed('/login'),
+            Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(15),
+                child: SelectableText(message)),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            Column(
+              children: const [
+                Divider(
+                  indent: 25,
+                  endIndent: 25,
+                  color: Colors.black,
+                  thickness: 1,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Try Restarting the App"),
+                SizedBox(
+                  height: 20,
+                )
+              ],
             ),
           ],
         ),

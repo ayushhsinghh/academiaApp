@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../models/Details.dart';
-import '../../Marks/MarksContainer.dart';
 import '../../Marks/MarksPage.dart';
 
 // MarksBuilder(AsyncSnapshot<Details> snapshot) {
