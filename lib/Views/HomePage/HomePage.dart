@@ -33,6 +33,7 @@ class HomePage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               controller.checkConnection.value = true;
+              controller.getCalender();
               // print("futureCalled");
               return Obx(() => IndexedStack(
                     index: controller.tabIndex.value,

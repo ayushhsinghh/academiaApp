@@ -29,14 +29,17 @@ class HttpService {
   }
 
   Future<Response> getRequest(
-      {required String endPoint, required Map<String, dynamic> query}) async {
+      {required String endPoint,
+      required Map<String, dynamic> query,
+      required int maxage,
+      required int maxStale}) async {
     Response response;
 
     try {
       response = await _dio.get(endPoint,
           queryParameters: query,
-          options: buildCacheOptions(const Duration(minutes: 1),
-              maxStale: const Duration(minutes: 1)));
+          options: buildCacheOptions(Duration(minutes: maxage),
+              maxStale: Duration(minutes: maxStale)));
     } on DioError catch (e) {
       if (kDebugMode) {
         print(e.message);

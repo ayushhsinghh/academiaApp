@@ -7,7 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:srmacademia/Views/AcademicCalender/Binding.dart';
+import 'package:srmacademia/Views/AcademicCalender/CalenderEvenPage.dart';
+import 'package:srmacademia/Views/AttendanceCalc/Calculator.dart';
 
+import 'Views/AcademicCalender/CalenderOddPage.dart';
 import 'Views/HomePage/HomePage.dart';
 import 'Views/HomePage/binding.dart';
 import 'Views/Profile/Components/Announcement.dart';
@@ -119,6 +123,16 @@ class _MyAppState extends State<MyApp> {
           binding: HomeBinding(),
         ),
         GetPage(
+          name: '/calenderEven',
+          page: () => const CalenderEvenPage(),
+          binding: CalenderBinding(),
+        ),
+        GetPage(
+          name: '/calenderOdd',
+          page: () => const CalenderOddPage(),
+          binding: CalenderBinding(),
+        ),
+        GetPage(
           name: '/undermaintenance',
           page: () => UnderMaintenance(
             message: _remoteConfig.getString('maintenanceDisplay'),
@@ -127,6 +141,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/announcements', page: () => const Announcement()),
         GetPage(name: '/UnifiedTT1', page: () => const UnifiedTT1()),
         GetPage(name: '/UnifiedTT2', page: () => const UnifiedTT2()),
+        GetPage(name: '/Calculator', page: () => Calculator()),
       ],
     );
   }

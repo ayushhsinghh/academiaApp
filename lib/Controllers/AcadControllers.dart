@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:srmacademia/models/Calender.dart';
 
 import '../models/Details.dart';
 import '../services/httpService.dart';
@@ -10,6 +11,7 @@ import '../services/httpService.dart';
 class AcadDataController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late Details studentData;
+  late Calender calender;
   // final academiaDataKey = const ObjectKey(Details);
   late AnimationController animationController;
   HttpService dhttp = HttpService();
@@ -49,10 +51,14 @@ class AcadDataController extends GetxController
   Future<Details> getData() async {
     debugPrint('fetchAlbum called');
 
-    final response = await dhttp.getRequest(endPoint: 'getDetails', query: {
-      'email': EMAIL,
-      'password': PASSWORD,
-    });
+    final response = await dhttp.getRequest(
+        endPoint: 'getDetails',
+        query: {
+          'email': EMAIL,
+          'password': PASSWORD,
+        },
+        maxage: 1,
+        maxStale: 60);
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -65,6 +71,36 @@ class AcadDataController extends GetxController
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load Academia Data');
+    }
+  }
+
+  Future<Calender> getCalender() async {
+    debugPrint('GetCalender called');
+    // Future.delayed(const Duration(seconds: 20), () {
+    //   print("waiting for calender");
+    // });
+
+    final response = await dhttp.getRequest(
+        endPoint: 'getCal',
+        query: {
+          'email': EMAIL,
+          'password': PASSWORD,
+        },
+        maxage: 1440,
+        maxStale: 10080);
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      calender = calenderFromJson(response.toString());
+      // debugPrint('id: ${studentData.id} title: ${newAlbum.title}');
+      // print(calender.calEven);
+
+      return calender;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load Calender Data');
     }
   }
 }

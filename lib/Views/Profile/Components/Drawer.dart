@@ -5,6 +5,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../DayOrderClass.dart';
+
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key, required this.userInfo}) : super(key: key);
 
@@ -133,6 +135,19 @@ class MyDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 10.0),
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        FontAwesomeIcons.calendarDay,
+                        color: Colors.black,
+                        size: 15,
+                      ),
+                      const SizedBox(width: 10),
+                      DayOrder()
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -150,6 +165,45 @@ class MyDrawer extends StatelessWidget {
             title: const Text('Announcements'),
             onTap: () => Get.toNamed('/announcements'),
           ),
+          ListTile(
+              iconColor: Colors.black,
+              leading: const Icon(FontAwesomeIcons.calendar),
+              title: const Text('Academic Calender'),
+              onTap: () => Get.dialog(
+                    AlertDialog(
+                      backgroundColor: Colors.blue.shade100,
+                      title: const Text('Academic Calender'),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                    onPressed: () {
+                                      Get.toNamed('/calenderEven');
+                                    },
+                                    child: const Text(
+                                        "Academic Planner Even Sem.")),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                    onPressed: () {
+                                      Get.toNamed('/calenderOdd');
+                                    },
+                                    child: const Text(
+                                        "Academic Planner Odd Sem.")),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
           ListTile(
             iconColor: Colors.black,
             leading: const Icon(FontAwesomeIcons.table),
@@ -187,6 +241,12 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          ListTile(
+            iconColor: Colors.black,
+            leading: const Icon(FontAwesomeIcons.calculator),
+            title: const Text('Attendance Calculator'),
+            onTap: () => Get.toNamed('/Calculator'),
           ),
           ListTile(
               iconColor: Colors.black,

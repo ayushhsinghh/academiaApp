@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 
@@ -55,7 +54,7 @@ class ProfilePage extends StatelessWidget {
                     childCount: facultyIndo!.length, (context, index) {
               List<String>? value = facultyIndo[index];
               double percent = 76.0;
-              bool isPractical = value[6].contains('Practical');
+              bool isPractical = value[8].contains('P');
               // print("${value[8].length}");
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
@@ -96,7 +95,11 @@ class ProfilePage extends StatelessWidget {
                             children: [
                               Center(
                                 child: Text(
-                                  value[8],
+                                  isPractical
+                                      ? value[8]
+                                          .substring(0, value[8].length - 1)
+                                      : value[8],
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: isPractical ? 13.0 : 20.0,
                                       fontWeight: FontWeight.bold,
@@ -104,10 +107,13 @@ class ProfilePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10.0),
-                              Text(
-                                value[6],
-                                style: const TextStyle(
-                                    fontSize: 18.0, color: Colors.black),
+                              Center(
+                                child: Text(
+                                  value[6],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 15.0, color: Colors.black),
+                                ),
                               ),
                             ],
                           ),
@@ -183,6 +189,7 @@ class ProfilePage extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       "Room No : ${value[9]}",
+                                      // textAlign: TextAlign.left,
                                       maxLines: 3,
                                       overflow: TextOverflow.clip,
                                     ),
