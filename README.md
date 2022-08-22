@@ -3,7 +3,7 @@
     <img src="https://github.com/ayushhsinghh/academiaApp/blob/main/assets/icons8-myspace-100.png" alt="Logo" width=72 height=72>
   </a>
 
-  <h3 align="center">Acadmia - Marks & Attendance Management </h3>
+  <h3 align="center">Academia - Marks & Attendance Management </h3>
 
   <p align="center">
     Attendance, Marks, TimeTable & Academic Calender at one place.
