@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
-  late TextEditingController emailController, passwordController;
+  late TextEditingController emailController,
+      passwordController,
+      qpasswordController;
   var email = '';
   var password = '';
+  var qpassword = '';
   final isvisible = true.obs;
 
   void changevisibilty() {
@@ -18,12 +21,14 @@ class LoginController extends GetxController {
     super.onInit();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    qpasswordController = TextEditingController();
   }
 
   @override
   void onClose() {
     emailController.dispose();
     passwordController.dispose();
+    qpasswordController.dispose();
   }
 
   bool validateEmail() {

@@ -6,11 +6,15 @@ import 'package:lottie/lottie.dart';
 
 import '../../Controllers/AcadControllers.dart';
 import '../../models/Details.dart';
+import '../Attendance/quicklrnAttendance.dart';
+import '../Marks/quicklrnMarksBuilder.dart';
+import '../Timetable/TimetableCalender.dart';
 import 'Components/AttendanceBuilder.dart';
 import 'Components/BottomNavBar.dart';
 import 'Components/MarksBuilder.dart';
 import 'Components/ProfileBuilder.dart';
 import 'Components/ShimmerEffect.dart';
+import '../Attendance/startquicklrn.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key, required this.title}) : super(key: key);
@@ -32,14 +36,22 @@ class HomePage extends StatelessWidget {
               .getData(), // this now lives it its own AcadDataController class
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              box.read('qpassword') != null ? controller.getData() : null;
               controller.checkConnection.value = true;
               controller.getCalender();
               // print("futureCalled");
               return Obx(() => IndexedStack(
                     index: controller.tabIndex.value,
                     children: [
-                      AttendanceBuilder(snapshot.data!),
-                      MarksBuilder(snapshot),
+                      box.read('qpassword') != null
+                          ? QuicklrnAttendace()
+                          : StartQuicklrn(),
+                      box.read('qpassword') != null
+                          ? QuicklrnMarksBuilder()
+                          : StartQuicklrn(),
+                      box.read('qpassword') != null
+                          ? QuicklrnCalenderBuilder()
+                          : StartQuicklrn(),
                       ProfileBuilder(snapshot),
                     ],
                   ));

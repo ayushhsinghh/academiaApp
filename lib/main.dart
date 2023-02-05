@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:srmacademia/Views/AcademicCalender/Binding.dart';
 import 'package:srmacademia/Views/AcademicCalender/CalenderEvenPage.dart';
-import 'package:srmacademia/Views/AttendanceCalc/Calculator.dart';
 
 import 'Views/AcademicCalender/CalenderOddPage.dart';
 import 'Views/HomePage/HomePage.dart';
@@ -107,7 +106,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       initialRoute:
           showApp ? (islogedIn ? '/home' : '/login') : '/undermaintenance',
@@ -141,7 +140,6 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/announcements', page: () => const Announcement()),
         GetPage(name: '/UnifiedTT1', page: () => const UnifiedTT1()),
         GetPage(name: '/UnifiedTT2', page: () => const UnifiedTT2()),
-        GetPage(name: '/Calculator', page: () => Calculator()),
       ],
     );
   }

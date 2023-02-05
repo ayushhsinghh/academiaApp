@@ -1,20 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:srmacademia/models/quicklrn.dart';
 
-import '../../models/Details.dart';
-import '../../Controllers/CalculatorController.dart';
 import 'Components/AttendanceCalc.dart';
 
-class AttendanceContainer extends StatelessWidget {
-  const AttendanceContainer(
+class QuicklrnAttendanceContainer extends StatelessWidget {
+  const QuicklrnAttendanceContainer(
       {Key? key, required this.studentInfo, required this.index})
       : super(key: key);
 
   final int index;
-  final Details studentInfo;
+  final QuicklrnApi studentInfo;
 
   int getCanbunk(int total, int absent) {
     int canbunk = 0;
@@ -31,14 +31,20 @@ class AttendanceContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String param = studentInfo.attendance!.keys.elementAt(index);
-    List<String>? value = studentInfo.attendance![param];
-    double percent = double.parse(value![7]);
+    List value = studentInfo.attendance[index];
+    double percent = value[4] + .0;
+    String name = value[0];
+    String subjectCode = value[1];
+    String subjecttype =
+        subjectCode[subjectCode.length - 1] == 'L' ? 'Practical' : 'Theory';
+    int total = value[2];
+    int present = value[3];
+    int absent = total - present;
     // double percent1 = 76.0;
-    // int canBunk = (int.parse(value[5]) * 0.25 - int.parse(value[6])).toInt();
-    int canBunk = getCanbunk(int.parse(value[5]), int.parse(value[6]));
-    int classRequired = int.parse(value[6]) * 4 - int.parse(value[5]).toInt();
-    int present = int.parse(value[5]) - int.parse(value[6]);
+    // int canBunk = (total * 0.25 - absent).truncate();
+    int canBunk = getCanbunk(total, absent);
+    int classRequired = (absent * 4 - total).toInt();
+    // int present = int.parse(value[5]) - int.parse(value[6]);
     if (kDebugMode) {
       print("running");
     }
@@ -50,7 +56,7 @@ class AttendanceContainer extends StatelessWidget {
           title: "Attendance Calculator",
           titlePadding: const EdgeInsets.all(15),
           content: AttendanceCalc(
-            total: value[5],
+            total: total.toString(),
             present: present.toString(),
           ),
         );
@@ -97,11 +103,13 @@ class AttendanceContainer extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            param,
+                            subjectCode,
                           ),
-                          const SizedBox(width: 15.0),
+                          const SizedBox(
+                            width: 20,
+                          ),
                           Text(
-                            value[2],
+                            subjecttype,
                           ),
                         ],
                       ),
@@ -110,7 +118,7 @@ class AttendanceContainer extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              value[1],
+                              name,
                               maxLines: 2,
                               overflow: TextOverflow.clip,
                               style: const TextStyle(
@@ -138,30 +146,19 @@ class AttendanceContainer extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              value[3],
-                              maxLines: 2,
-                              overflow: TextOverflow.clip,
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 )
               ],
             ),
-            const SizedBox(height: 15.0),
+            const SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Column(
                   children: <Widget>[
                     Text(
-                      value[5],
+                      total.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -201,7 +198,7 @@ class AttendanceContainer extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Text(
-                      value[6],
+                      absent.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

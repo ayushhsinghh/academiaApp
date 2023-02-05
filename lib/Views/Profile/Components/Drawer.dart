@@ -26,129 +26,164 @@ class MyDrawer extends StatelessWidget {
       backgroundColor: Colors.blue.shade100,
       child: ListView(
         children: [
-          Center(
-            child: Container(
-              margin: const EdgeInsets.all(15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      height: 150,
-                      width: 150,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        // color: Colors.red.shade100,
-                      ),
-                      child: Lottie.asset(
-                        'assets/json/humans.json',
-                        repeat: true,
-                      )
-                      // Text(
-                      //   userInfo['Name:'].substring(0, 1),
-                      //   style: const TextStyle(
-                      //     fontSize: 40,
-                      //     color: Colors.white,
-                      //   ),
-                      // ),
-                      ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.userSecret,
-                        color: Colors.black,
-                        size: 18,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        // overflow: TextOverflow.clip,
-                        // maxLines: 2,
-                        userInfo['Name:'],
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(
-                    color: Colors.black,
-                    thickness: 1,
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.bookOpenReader,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        userInfo['Program:'],
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.idCard,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        userInfo['Registration Number:'],
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.graduationCap,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        userInfo['Department:'],
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.calendarDay,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                      const SizedBox(width: 10),
-                      DayOrder()
-                    ],
+          GestureDetector(
+            onLongPress: () {
+              Get.defaultDialog(
+                title: 'User Details',
+                content: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SelectableText('Name: ${userInfo['Name:']}'),
+                    SelectableText('Email: ${box.read('email')}'),
+                    SelectableText('Phone: ${userInfo['Mobile:']}'),
+                    SelectableText(
+                        'Roll No: ${userInfo['Registration Number:']}'),
+                    SelectableText('Branch: ${userInfo['Batch:']}'),
+                    SelectableText('Department: ${userInfo['Department:']}'),
+                    SelectableText('Batch: ${userInfo['Batch:']}'),
+                    const SizedBox(height: 10),
+                    SelectableText('App Link: $link'),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: const Text('Close'),
                   ),
                 ],
+              );
+            },
+            child: Center(
+              child: Container(
+                margin: const EdgeInsets.all(15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        height: 150,
+                        width: 150,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          // color: Colors.red.shade100,
+                        ),
+                        child: Lottie.asset(
+                          'assets/json/humans.json',
+                          repeat: true,
+                        )
+                        // Text(
+                        //   userInfo['Name:'].substring(0, 1),
+                        //   style: const TextStyle(
+                        //     fontSize: 40,
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
+                        ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.userSecret,
+                          color: Colors.black,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          // overflow: TextOverflow.clip,
+                          // maxLines: 2,
+                          userInfo['Name:'] ?? "Not Available",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                      thickness: 1,
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.bookOpenReader,
+                          color: Colors.black,
+                          size: 15,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          userInfo['Program:'] ?? "Not Available",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.idCard,
+                          color: Colors.black,
+                          size: 15,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          userInfo['Registration Number:'] ?? "Not Available",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.graduationCap,
+                          color: Colors.black,
+                          size: 15,
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: Text(
+                            userInfo['Department:'] ?? "Not Available",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.calendarDay,
+                          color: Colors.black,
+                          size: 15,
+                        ),
+                        const SizedBox(width: 10),
+                        DayOrder()
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -243,12 +278,6 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            iconColor: Colors.black,
-            leading: const Icon(FontAwesomeIcons.calculator),
-            title: const Text('Attendance Calculator'),
-            onTap: () => Get.toNamed('/Calculator'),
-          ),
-          ListTile(
               iconColor: Colors.black,
               leading: const Icon(FontAwesomeIcons.download),
               title: const Text('Check for Updates...'),
@@ -316,6 +345,7 @@ class MyDrawer extends StatelessWidget {
                     onPressed: () {
                       box.remove('email');
                       box.remove('password');
+                      box.remove('qpassword');
 
                       Get.offAllNamed('/login');
                     },

@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:srmacademia/models/quicklrn.dart';
 import '../../models/Details.dart';
 import 'functions.dart';
 
-class MarksPage extends StatelessWidget {
-  const MarksPage({Key? key, required this.studentInfo}) : super(key: key);
+class QuicklrnMarks extends StatelessWidget {
+  const QuicklrnMarks({Key? key, required this.studentInfo}) : super(key: key);
 
-  final Details studentInfo;
+  final QuicklrnApi studentInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class MarksPage extends StatelessWidget {
               ),
               expandedHeight: 110,
             ),
-            studentInfo.marks!.isEmpty
+            studentInfo.marks.isEmpty
                 ? const SliverFillRemaining(
                     child: Center(
                       child: Text(
@@ -42,20 +43,12 @@ class MarksPage extends StatelessWidget {
                   )
                 : SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        childCount: studentInfo.marks!.length,
-                        (context, index) {
-                    String param = studentInfo.marks!.keys.elementAt(index);
-                    List<double>? value = studentInfo.marks![param];
-                    double totalMark = 0;
-                    double obtainedMark = 0;
-                    List<double> marks = [];
-                    // value = [15, 10.152, 10, 5, 20, 16.555, 10, 5.3315];
-                    if (value != null) {
-                      totalMark = MathFunction.getTotalMarks(value);
-                      obtainedMark = MathFunction.getObtainedMarks(value);
-                      marks = MathFunction.getMarks(value);
-                    }
-                    // marks = [15.152, 9, 2, 1];
+                        childCount: studentInfo.marks.length, (context, index) {
+                    List value = studentInfo.marks[index];
+                    double totalMark = value[value.length - 3] + .0;
+                    double obtainedMark = value[value.length - 4] + .0;
+                    List marks = value.sublist(1, value.length - 4);
+
                     if (kDebugMode) {
                       print("$marks");
                     }
@@ -98,7 +91,9 @@ class MarksPage extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    param,
+                                    value[value.length - 1].contains("LAB")
+                                        ? value[0] + " Practical"
+                                        : value[0],
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -161,7 +156,8 @@ class MarksPage extends StatelessWidget {
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             Text(
-                                              param.contains("Practical")
+                                              value[value.length - 1]
+                                                      .contains("LAB")
                                                   ? "P-${index + 1}"
                                                   : "CLA-${index + 1}",
                                               style: const TextStyle(

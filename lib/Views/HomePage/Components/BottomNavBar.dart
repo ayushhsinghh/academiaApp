@@ -1,5 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../Controllers/AcadControllers.dart';
 
@@ -19,6 +20,12 @@ BottomNavyBar BottomNavBar(AcadDataController controller) {
           title: const Text('Marks'),
           activeColor: Colors.purple.shade100,
           inactiveColor: Colors.purple.shade300),
+      BottomNavyBarItem(
+        icon: const Icon(Icons.calendar_today),
+        title: const Text('Calender'),
+        activeColor: const Color.fromARGB(237, 2, 79, 8),
+        inactiveColor: const Color.fromARGB(236, 10, 52, 2),
+      ),
       BottomNavyBarItem(
           icon: const Icon(Icons.person),
           title: const Text('Profile'),
