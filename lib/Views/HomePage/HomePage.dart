@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
+import 'package:srmacademia/Views/Timetable/NoData.dart';
+import 'package:srmacademia/Views/Undermaintenance.dart';
 
 import '../../Controllers/AcadControllers.dart';
 import '../../models/Details.dart';
@@ -43,15 +45,16 @@ class HomePage extends StatelessWidget {
               return Obx(() => IndexedStack(
                     index: controller.tabIndex.value,
                     children: [
-                      box.read('qpassword') != null
-                          ? QuicklrnAttendace()
-                          : StartQuicklrn(),
-                      box.read('qpassword') != null
-                          ? QuicklrnMarksBuilder()
-                          : StartQuicklrn(),
-                      box.read('qpassword') != null
-                          ? QuicklrnCalenderBuilder()
-                          : StartQuicklrn(),
+                      AttendanceBuilder(snapshot.requireData),
+                      MarksBuilder(snapshot),
+                      // box.read('qpassword') != null
+                      //     ? QuicklrnAttendace()
+                      //     : StartQuicklrn(),
+                      // box.read('qpassword') != null
+                      //     ? QuicklrnMarksBuilder()
+                      //     : StartQuicklrn(),
+                      // NoData(),
+                      const UnderMaintenance2(message: "Under Maintenance"),
                       ProfileBuilder(snapshot),
                     ],
                   ));
