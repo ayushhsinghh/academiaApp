@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   
 
 
@@ -72,6 +73,11 @@ flutter_icons:
   image_path: 'assets/icons8-myspace-100.png'
   ios: true
   android: true
+
+dependency_overrides:
+  package_info_plus: ^4.0.1
+  wakelock_windows: any
+  win32: any
 
 
 
