@@ -51,11 +51,14 @@
 * AWS Lambda - API
 * Firebase - Analytics
 
-  image1.jpeg
-image2.jpeg
-image3.jpeg
-image4.jpeg
-image5.jpeg
+### App ScreenShots
+
+<img src="https://github.com/ayushhsinghh/academiaApp/assets/100923155/9c8e471d-1de7-4304-b561-23b37de55ab8" width="200" height="400"/>
+<img src="https://github.com/ayushhsinghh/academiaApp/assets/100923155/74fce5a6-23b8-4f12-beca-504d3c38570a" width="200" height="400"/>
+<img src="https://github.com/ayushhsinghh/academiaApp/assets/100923155/c32ae011-2120-4fdc-9ff2-16e42ddeceed" width="200" height="400"/>
+<img src="https://github.com/ayushhsinghh/academiaApp/assets/100923155/9eaab327-f1c0-425c-b3d9-4f588a700399" width="200" height="400"/>
+<img src="https://github.com/ayushhsinghh/academiaApp/assets/100923155/5a6b55ae-d7d2-4f36-8f5c-48051377fe4a" width="200" height="400"/>
+
 
 
 ## Creators
