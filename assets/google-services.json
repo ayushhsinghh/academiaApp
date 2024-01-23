@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "176908400957",
+    "project_id": "srmacademia-35d88",
+    "storage_bucket": "srmacademia-35d88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:176908400957:android:87a7406f186405b2d56d54",
+        "android_client_info": {
+          "package_name": "com.ayush/Users/cyberdad/Desktop/google-services.json.srmacadmia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "176908400957-7ck9odrr59inrv5klea71vfblu4nhf3j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2vQGWEWumDwmaATVf6cU1kDt4Q986mlM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "176908400957-7ck9odrr59inrv5klea71vfblu4nhf3j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "176908400957-n8jnhqms0uki1sc4vdpu0ofcp6dhvsgt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.srmacadmia"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,41 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA9U5EcQGD4TvE_JeuUCxitRuzror9rkvY',
-    appId: '1:176908400957:web:890fa550d918dc8cd56d54',
-    messagingSenderId: '176908400957',
-    projectId: 'srmacademia-35d88',
-    authDomain: 'srmacademia-35d88.firebaseapp.com',
-    storageBucket: 'srmacademia-35d88.appspot.com',
-    measurementId: 'G-FSZK6TL30D',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB2vQGWEWumDwmaATVf6cU1kDt4Q986mlM',
-    appId: '1:176908400957:android:87a7406f186405b2d56d54',
-    messagingSenderId: '176908400957',
-    projectId: 'srmacademia-35d88',
-    storageBucket: 'srmacademia-35d88.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyApCuDUQN7MDdpxx8lDY6CsHg98qomRc3I',
-    appId: '1:176908400957:ios:11771323947ee50ad56d54',
-    messagingSenderId: '176908400957',
-    projectId: 'srmacademia-35d88',
-    storageBucket: 'srmacademia-35d88.appspot.com',
-    iosClientId: '176908400957-n8jnhqms0uki1sc4vdpu0ofcp6dhvsgt.apps.googleusercontent.com',
-    iosBundleId: 'com.example.srmacadmia',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyApCuDUQN7MDdpxx8lDY6CsHg98qomRc3I',
-    appId: '1:176908400957:ios:11771323947ee50ad56d54',
-    messagingSenderId: '176908400957',
-    projectId: 'srmacademia-35d88',
-    storageBucket: 'srmacademia-35d88.appspot.com',
-    iosClientId: '176908400957-n8jnhqms0uki1sc4vdpu0ofcp6dhvsgt.apps.googleusercontent.com',
-    iosBundleId: 'com.example.srmacadmia',
+    apiKey: 'AIzaSyDtzckJPxu5N0ZatusjA8Eu2QPp1hdFy6I',
+    appId: '1:717916538302:android:95836cf1c1907cc6fde5ef',
+    messagingSenderId: '717916538302',
+    projectId: 'thook-e9b12',
+    storageBucket: 'thook-e9b12.appspot.com',
   );
 }
