@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:srmacademia/Views/AcademicCalender/Binding.dart';
 import 'package:srmacademia/Views/AcademicCalender/CalenderEvenPage.dart';
+import 'package:srmacademia/Views/Profile/Components/Developers.dart';
 
 import 'Views/AcademicCalender/CalenderOddPage.dart';
 import 'Views/HomePage/HomePage.dart';
@@ -139,6 +140,7 @@ class _MyAppState extends State<MyApp> {
         ),
         GetPage(name: '/announcements', page: () => const Announcement()),
         GetPage(name: '/UnifiedTT1', page: () => const UnifiedTT1()),
+        GetPage(name: '/DevelopersPage', page: () => DeveloperPage()),
         GetPage(name: '/UnifiedTT2', page: () => const UnifiedTT2()),
       ],
     );

@@ -3,7 +3,7 @@
 //     final details = detailsFromJson(jsonString);
 
 import 'dart:convert';
-import 'dart:ffi';
+// import 'dart:ffi';
 
 Details detailsFromJson(String str) => Details.fromJson(json.decode(str));
 

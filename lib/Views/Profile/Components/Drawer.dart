@@ -277,53 +277,20 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
           ),
-          // ListTile(
-          //     iconColor: Colors.black,
-          //     leading: const Icon(FontAwesomeIcons.download),
-          //     title: const Text('Check for Updates...'),
-          //     onTap: () async {
-          //       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-          //       String version = packageInfo.version;
-          //       Get.dialog(
-          //         AlertDialog(
-          //           backgroundColor: Colors.blue.shade100,
-          //           title: const Text('Download APK (Selectable)'),
-          //           content: Column(
-          //             mainAxisAlignment: MainAxisAlignment.start,
-          //             mainAxisSize: MainAxisSize.min,
-          //             children: [
-          //               Container(
-          //                 padding: const EdgeInsets.all(5),
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(10),
-          //                   color: Colors.blue.shade200,
-          //                 ),
-          //                 child: SelectableText(
-          //                   link,
-          //                 ),
-          //               ),
-          //               const SizedBox(height: 10),
-          //               Container(
-          //                 padding: const EdgeInsets.all(5),
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(7),
-          //                   // color: Colors.blue.shade200,
-          //                 ),
-          //                 child: Text(
-          //                   'Current Version: $version',
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //           actions: [
-          //             TextButton(
-          //               child: const Text('Close'),
-          //               onPressed: () => Get.back(),
-          //             ),
-          //           ],
-          //         ),
-          //       );
-          //     }),
+          ListTile(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            title: const Text("Developers"),
+            iconColor: Colors.black,
+            leading: const Icon(FontAwesomeIcons.dev),
+            onTap: () {
+              Get.toNamed('/DevelopersPage');
+            },
+          ),
           ListTile(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
